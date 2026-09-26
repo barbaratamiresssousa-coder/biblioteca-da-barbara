@@ -1,0 +1,103 @@
+name: Atualizar PDF da Novena
+
+on:
+  push:
+    paths:
+      - '.github/workflows/update-novena-pdf.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  corrigir:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Baixar repositório
+        uses: actions/checkout@v4
+
+      - name: Preparar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Instalar PyMuPDF
+        run: python -m pip install --disable-pip-version-check pymupdf
+
+      - name: Corrigir PDF da novena
+        shell: bash
+        run: |
+          python - <<'PY'
+          import fitz
+          import os
+          import sys
+
+          path = "Novena_Nossa_Senhora_Aparecida_19,90.pdf"
+          if not os.path.exists(path):
+              raise SystemExit(f"Arquivo não encontrado: {path}")
+
+          doc = fitz.open(path)
+          if len(doc) < 6:
+              raise SystemExit(f"PDF inesperado: apenas {len(doc)} páginas")
+
+          # Confere o tamanho esperado antes de editar.
+          w, h = doc[0].rect.width, doc[0].rect.height
+          if abs(w - 432) > 2 or abs(h - 648) > 2:
+              raise SystemExit(f"Tamanho de página inesperado: {w} x {h}")
+
+          # CAPA: nome da autora, pequeno e discreto.
+          cover = doc[0]
+          cover.insert_textbox(
+              fitz.Rect(90, 616, 342, 634),
+              "Bárbara Tamires Sousa",
+              fontname="Times-Roman",
+              fontsize=8.2,
+              color=(1, 1, 1),
+              align=1,
+          )
+
+          # DIA 1: corrige a palavra "devoção" na última linha de "Um pouco da história".
+          p = doc[2]
+          r = fitz.Rect(23.4, 267.2, 62.0, 279.5)
+          p.add_redact_annot(r, fill=(249/255, 244/255, 235/255))
+          p.apply_redactions()
+          p.insert_text(
+              (24.3, 276.0),
+              "devoção",
+              fontname="Times-Roman",
+              fontsize=7.7,
+              color=(28/255, 34/255, 49/255),
+          )
+
+          # DIA 4: corrige "trabailhadores" para "trabalhadores".
+          p = doc[5]
+          r = fitz.Rect(167.0, 141.3, 234.0, 151.5)
+          p.add_redact_annot(r, fill=(249/255, 245/255, 237/255))
+          p.apply_redactions()
+          p.insert_text(
+              (168.0, 149.3),
+              "trabalhadores,",
+              fontname="Times-Roman",
+              fontsize=7.7,
+              color=(28/255, 34/255, 49/255),
+          )
+
+          tmp = path + ".corrigido.pdf"
+          doc.save(tmp, garbage=4, deflate=True)
+          doc.close()
+          os.replace(tmp, path)
+          print("PDF corrigido com sucesso.")
+          PY
+
+      - name: Publicar PDF corrigido
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -- "Novena_Nossa_Senhora_Aparecida_19,90.pdf"
+          if git diff --cached --quiet; then
+            echo "Nenhuma alteração para publicar."
+            exit 0
+          fi
+          git commit -m "Atualiza PDF corrigido da novena"
+          git push
