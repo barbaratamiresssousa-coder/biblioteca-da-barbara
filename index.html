@@ -25,11 +25,52 @@
     if(!list.some(b=>b.id===NOVENA.id)) list.push(NOVENA);
     html=html.slice(0,arrayStart)+JSON.stringify(list)+html.slice(arrayEnd+1);
 
-    const extraScript='<scr'+'ipt>(function(){'+
-    'var physicalUrl="https://wa.me/5589981099602?text=Ol%C3%A1%2C%20B%C3%A1rbara%21%20Quero%20adquirir%20o%20livro%20f%C3%ADsico%20Novena%20de%20Nossa%20Senhora%20Aparecida%20por%20R%24%2049%2C90.";'+
-    'function slug(s){return s.toLowerCase().normalize("NFD").replace(/[\\u0300-\\u036f]/g,"").replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"");}'+
-    'function setup(){var cards=[].slice.call(document.querySelectorAll(".book-card"));cards.forEach(function(card){var h=card.querySelector("h2");if(!h)return;var title=h.textContent.trim();var id=slug(title);card.id=id;var actions=card.querySelector(".actions");if(actions&&!actions.querySelector(".share-book")){var btn=document.createElement("button");btn.type="button";btn.className="btn share-book";btn.textContent="Compartilhar";btn.style.cssText="background:#fff;border:1px solid #d9c6b7;color:#6e2947";btn.addEventListener("click",function(){var u=location.origin+location.pathname+"#"+id;var data={title:title,text:"Veja este livro na Biblioteca da Bárbara: "+title,url:u};if(navigator.share){navigator.share(data).catch(function(){});}else if(navigator.clipboard){navigator.clipboard.writeText(u).then(function(){var old=btn.textContent;btn.textContent="Link copiado!";setTimeout(function(){btn.textContent=old;},1800);});}else{prompt("Copie o link deste livro:",u);}});actions.appendChild(btn);}if(title.toLowerCase().indexOf("nossa senhora aparecida")>=0){var pb=card.querySelector(".price-box");if(pb&&!card.querySelector(".physical-price-line")){var line=document.createElement("div");line.className="physical-price-line";line.style.cssText="margin-top:6px;font-weight:700;color:#7a4a34;font-size:15px";line.textContent="Livro físico — R$ 49,90";pb.appendChild(line);}if(actions&&!actions.querySelector(".physical-buy")){var a=document.createElement("a");a.className="btn physical-buy";a.href=physicalUrl;a.target="_blank";a.rel="noopener";a.textContent="Adquirir livro físico";a.style.cssText="background:#fff;border:1px solid #c7a86b;color:#6e2947";actions.appendChild(a);}var details=card.querySelector("[data-details]");if(details&&!details.dataset.physicalBound){details.dataset.physicalBound="1";details.addEventListener("click",function(){setTimeout(function(){var dp=document.querySelector("#detailModal .detail-price");if(dp&&!dp.querySelector(".physical-detail-line")){var s=document.createElement("strong");s.className="physical-detail-line";s.style.cssText="display:block;font-size:19px;margin-top:6px";s.textContent="Livro físico - R$ 49,90";dp.appendChild(s);}var da=document.querySelector("#detailModal .actions");if(da&&!document.getElementById("buyPhysicalFromDetails")){var b=document.createElement("a");b.id="buyPhysicalFromDetails";b.className="btn physical-buy";b.href=physicalUrl;b.target="_blank";b.rel="noopener";b.textContent="Adquirir livro físico";b.style.cssText="background:#fff;border:1px solid #c7a86b;color:#6e2947";da.appendChild(b);}},0);});}}});if(location.hash){var target=document.getElementById(location.hash.slice(1));if(target){setTimeout(function(){target.scrollIntoView({behavior:"smooth",block:"center"});target.style.boxShadow="0 0 0 3px rgba(165,47,99,.18),0 16px 42px rgba(70,35,48,.12)";},120);}}}if(document.readyState==="loading"){document.addEventListener("DOMContentLoaded",setup);}else{setup();}})();</scr'+'ipt>';
-    html=html.replace('</body>',extraScript+'</body>');
+    const PHYSICAL_URL='https://wa.me/5589981099602?text=Ol%C3%A1%2C%20B%C3%A1rbara%21%20Quero%20adquirir%20o%20livro%20f%C3%ADsico%20Novena%20de%20Nossa%20Senhora%20Aparecida%20por%20R%24%2049%2C90.';
+
+    html=html.replace(
+      'function renderBooks(){grid.innerHTML=BOOKS.map(book=>\`<article class="book-card">',
+      'function renderBooks(){grid.innerHTML=BOOKS.map(book=>\`<article class="book-card" id="\${book.id}">'
+    );
+
+    html=html.replace(
+      '<div class="price-box"><span>PDF</span><strong>\${book.price}</strong></div><div class="actions">',
+      '<div class="price-box"><span>PDF</span><strong>\${book.price}</strong>\${book.id==="novena-nossa-senhora-aparecida"?\`<div style="margin-top:7px;font-size:14px;font-weight:800;color:#7a4a34">Livro físico — R$ 49,90</div>\`:""}</div><div class="actions">'
+    );
+
+    html=html.replace(
+      '<a class="btn gold buy" href="\${book.buy}" target="_blank" rel="noopener">Adquirir PDF</a></div></div></article>\`',
+      '<a class="btn gold buy" href="\${book.buy}" target="_blank" rel="noopener">Adquirir PDF</a>\${book.id==="novena-nossa-senhora-aparecida"?\`<a class="btn ghost" href="'+PHYSICAL_URL+'" target="_blank" rel="noopener">Adquirir livro físico</a>\`:""}<button class="btn ghost share-book" type="button" data-share="\${book.id}">Compartilhar</button></div></div></article>\`'
+    );
+
+    html=html.replace(
+      "grid.querySelectorAll('[data-read]').forEach(btn=>btn.addEventListener('click',()=>openReader(btn.dataset.read)));renderPdfCovers()}",
+      "grid.querySelectorAll('[data-read]').forEach(btn=>btn.addEventListener('click',()=>openReader(btn.dataset.read)));grid.querySelectorAll('[data-share]').forEach(btn=>btn.addEventListener('click',()=>shareBook(btn.dataset.share)));renderPdfCovers()}"
+    );
+
+    html=html.replace(
+      'function getBook(id){return BOOKS.find(b=>b.id===id)}',
+      'function shareBook(id){const book=getBook(id);if(!book)return;const url=location.href.split("#")[0]+"#"+id;const data={title:book.title,text:"Veja este livro na Biblioteca da Bárbara: "+book.title,url};if(navigator.share){navigator.share(data).catch(()=>{});}else if(navigator.clipboard){navigator.clipboard.writeText(url).then(()=>alert("Link do livro copiado!"));}else{prompt("Copie o link deste livro:",url);}}\\nfunction getBook(id){return BOOKS.find(b=>b.id===id)}'
+    );
+
+    html=html.replace(
+      '<div class="detail-price"><small>Versão disponível</small><strong>PDF - R$ 39,90</strong></div><div class="actions"><button class="btn primary" id="readFromDetails">Ler prévia</button><a class="btn gold buy" id="buyFromDetails" href="#" target="_blank" rel="noopener">Adquirir PDF</a></div>',
+      '<div class="detail-price"><small>Versão disponível</small><strong id="detailPdfPrice">PDF</strong><strong id="detailPhysicalPrice" style="display:none;font-size:19px;margin-top:6px"></strong></div><div class="actions"><button class="btn primary" id="readFromDetails">Ler prévia</button><a class="btn gold buy" id="buyFromDetails" href="#" target="_blank" rel="noopener">Adquirir PDF</a><a class="btn ghost" id="buyPhysicalFromDetails" href="#" target="_blank" rel="noopener" style="display:none">Adquirir livro físico</a><button class="btn ghost" id="shareFromDetails" type="button">Compartilhar</button></div>'
+    );
+
+    html=html.replace(
+      'buyFromDetails.href=currentBook.buy;details.classList.add',
+      'buyFromDetails.href=currentBook.buy;document.getElementById("detailPdfPrice").textContent="PDF - "+currentBook.price;const physicalPrice=document.getElementById("detailPhysicalPrice"),physicalBuy=document.getElementById("buyPhysicalFromDetails");if(currentBook.id==="novena-nossa-senhora-aparecida"){physicalPrice.textContent="Livro físico - R$ 49,90";physicalPrice.style.display="block";physicalBuy.href="'+PHYSICAL_URL+'";physicalBuy.style.display="inline-flex";}else{physicalPrice.style.display="none";physicalBuy.style.display="none";}details.classList.add'
+    );
+
+    html=html.replace(
+      "readFromDetails.addEventListener('click',()=>currentBook&&openReader(currentBook.id));readerClose.addEventListener",
+      "readFromDetails.addEventListener('click',()=>currentBook&&openReader(currentBook.id));document.getElementById('shareFromDetails').addEventListener('click',()=>currentBook&&shareBook(currentBook.id));readerClose.addEventListener"
+    );
+
+    html=html.replace(
+      'year.textContent=new Date().getFullYear();renderBooks();',
+      'year.textContent=new Date().getFullYear();renderBooks();if(location.hash){const sharedId=decodeURIComponent(location.hash.slice(1));if(getBook(sharedId))setTimeout(()=>openDetails(sharedId),0);}'
+    );
 
     document.open();document.write(html);document.close();
   }catch(err){
