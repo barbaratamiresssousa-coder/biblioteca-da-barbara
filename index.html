@@ -49,7 +49,7 @@
 
     html=html.replace(
       'function getBook(id){return BOOKS.find(b=>b.id===id)}',
-      'function shareBook(id){const book=getBook(id);if(!book)return;const url=location.href.split("#")[0]+"#"+id;const data={title:book.title,text:"Veja este livro na Biblioteca da Bárbara: "+book.title,url};if(navigator.share){navigator.share(data).catch(()=>{});}else if(navigator.clipboard){navigator.clipboard.writeText(url).then(()=>alert("Link do livro copiado!"));}else{prompt("Copie o link deste livro:",url);}}\\nfunction getBook(id){return BOOKS.find(b=>b.id===id)}'
+      'function shareBook(id){const book=getBook(id);if(!book)return;const url=location.href.split("#")[0]+"#"+id;const data={title:book.title,text:"Veja este livro na Biblioteca da Bárbara: "+book.title,url};if(navigator.share){navigator.share(data).catch(()=>{});}else if(navigator.clipboard){navigator.clipboard.writeText(url).then(()=>alert("Link do livro copiado!"));}else{prompt("Copie o link deste livro:",url);}};function getBook(id){return BOOKS.find(b=>b.id===id)}'
     );
 
     html=html.replace(
