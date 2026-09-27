@@ -47,7 +47,7 @@
 
     html=html.replace(
       "grid.querySelectorAll('[data-read]').forEach(btn=>btn.addEventListener('click',()=>openReader(btn.dataset.read)))}",
-      "grid.querySelectorAll('[data-read]').forEach(btn=>btn.addEventListener('click',()=>openReader(btn.dataset.read)));grid.querySelectorAll('[data-share]').forEach(btn=>btn.addEventListener('click',()=>shareBook(btn.dataset.share)));renderPdfCovers()}"
+      "grid.querySelectorAll('[data-read]').forEach(btn=>btn.addEventListener('click',()=>openReader(btn.dataset.read)));grid.querySelectorAll('[data-share]').forEach(btn=>btn.addEventListener('click',()=>shareBook(btn.dataset.share)))}"
     );
 
     html=html.replace(
