@@ -72,6 +72,33 @@
       'year.textContent=new Date().getFullYear();renderBooks();if(location.hash){const sharedId=decodeURIComponent(location.hash.slice(1));if(getBook(sharedId))setTimeout(()=>openDetails(sharedId),0);}'
     );
 
+    html=html.replace('</body>',`<script>
+(function(){
+  const COVER_URL=new URL('capa_novena_aparecida.jpg?v=20260926-preview-fix',location.href).href;
+  function isNovenaFirstPreview(img){
+    const alt=(img.getAttribute('alt')||'').toLowerCase();
+    return alt.includes('novena de nossa senhora aparecida') && alt.includes('página 1 de 5');
+  }
+  function fixPreview(){
+    document.querySelectorAll('img').forEach(function(img){
+      if(isNovenaFirstPreview(img) && !img.dataset.novenaPreviewFixed){
+        img.dataset.novenaPreviewFixed='1';
+        img.src=COVER_URL;
+      }
+    });
+  }
+  document.addEventListener('error',function(ev){
+    const img=ev.target;
+    if(img && img.tagName==='IMG' && isNovenaFirstPreview(img) && !img.dataset.novenaPreviewFixed){
+      img.dataset.novenaPreviewFixed='1';
+      img.src=COVER_URL;
+    }
+  },true);
+  new MutationObserver(fixPreview).observe(document.documentElement,{childList:true,subtree:true});
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',fixPreview);
+  else fixPreview();
+})();
+<\/script></body>`);
     document.open();document.write(html);document.close();
   }catch(err){
     document.getElementById('loading').textContent='Não foi possível abrir a biblioteca agora. Atualize a página e tente novamente.';
