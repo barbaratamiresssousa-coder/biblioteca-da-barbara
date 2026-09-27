@@ -1,15 +1,33 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1055" height="1491" viewBox="0 0 1055 1491">
-<rect width="1055" height="1491" fill="#f8efd9"/><rect x="36" y="36" width="983" height="1419" fill="none" stroke="#b18a4c" stroke-width="5"/>
-<text x="527.5" y="110" text-anchor="middle" font-family="Georgia,serif" font-size="46" fill="#b18a4c">✝</text>
-<text x="527.5" y="305" text-anchor="middle" font-family="Georgia,serif" font-size="55" fill="#b18a4c">NOVENA DE</text>
-<text x="527.5" y="420" text-anchor="middle" font-family="Georgia,serif" font-size="92" font-weight="700" fill="#4a2416">SÃO FRANCISCO</text>
-<text x="527.5" y="515" text-anchor="middle" font-family="Georgia,serif" font-size="92" font-weight="700" fill="#4a2416">DE ASSIS</text>
-<line x1="190" y1="565" x2="865" y2="565" stroke="#b18a4c" stroke-width="3"/>
-<text x="527.5" y="635" text-anchor="middle" font-family="Georgia,serif" font-size="45" font-style="italic" fill="#42552f">9 dias de fé, paz e simplicidade</text>
-<circle cx="527.5" cy="900" r="215" fill="#eee0bd" stroke="#b18a4c" stroke-width="4"/>
-<path d="M510 755 C445 825 440 965 492 1050 C520 1095 565 1095 595 1050 C630 985 610 845 550 765 Z" fill="#795438"/>
-<circle cx="530" cy="790" r="50" fill="#d7aa78"/><path d="M485 790 C505 725 575 725 583 785 C550 755 520 755 485 790" fill="#4a2b20"/>
-<path d="M390 915 C455 860 600 860 665 915" fill="none" stroke="#66734a" stroke-width="18" stroke-linecap="round"/>
-<circle cx="376" cy="898" r="17" fill="#66734a"/><circle cx="682" cy="895" r="14" fill="#66734a"/>
-<text x="527.5" y="1215" text-anchor="middle" font-family="Georgia,serif" font-size="38" font-style="italic" fill="#4a2416">“Senhor, fazei de mim um instrumento da vossa paz.”</text>
-<text x="527.5" y="1360" text-anchor="middle" font-family="Georgia,serif" font-size="31" fill="#4a2416">Bárbara Tamires Sousa</text></svg>
+<defs>
+  <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#fff9ea"/><stop offset="1" stop-color="#efe0bd"/></linearGradient>
+  <radialGradient id="sun"><stop stop-color="#fff4c9"/><stop offset="1" stop-color="#dcb56c"/></radialGradient>
+</defs>
+<rect width="1055" height="1491" fill="url(#bg)"/>
+<rect x="34" y="34" width="987" height="1423" rx="8" fill="none" stroke="#a77a32" stroke-width="4"/>
+<path d="M55 80 C120 35 175 45 220 90 C165 82 125 100 80 145" fill="#53613d" opacity=".9"/>
+<path d="M1000 82 C940 35 885 48 840 92 C895 84 935 102 978 148" fill="#53613d" opacity=".9"/>
+<text x="527" y="102" text-anchor="middle" font-family="Georgia,serif" font-size="42" fill="#9d7436">✝</text>
+<line x1="210" y1="145" x2="845" y2="145" stroke="#b78a41" stroke-width="2"/>
+<text x="527" y="255" text-anchor="middle" font-family="Georgia,serif" font-size="56" fill="#a57835">NOVENA DE</text>
+<text x="527" y="365" text-anchor="middle" font-family="Georgia,serif" font-size="94" font-weight="700" fill="#3f1e13">SÃO FRANCISCO</text>
+<text x="527" y="462" text-anchor="middle" font-family="Georgia,serif" font-size="94" font-weight="700" fill="#3f1e13">DE ASSIS</text>
+<text x="527" y="535" text-anchor="middle" font-family="Georgia,serif" font-size="42" font-style="italic" fill="#40512c">9 dias de fé, paz e simplicidade</text>
+<line x1="250" y1="575" x2="805" y2="575" stroke="#b78a41" stroke-width="2"/>
+<circle cx="527" cy="865" r="250" fill="url(#sun)" opacity=".45"/>
+<path d="M440 750 C390 840 392 1040 450 1135 L605 1135 C665 1015 650 845 585 755 C555 715 477 710 440 750Z" fill="#65432f"/>
+<circle cx="515" cy="715" r="60" fill="#c99366"/>
+<path d="M458 710 C476 635 570 635 585 708 C555 680 505 674 458 710Z" fill="#4b2d23"/>
+<path d="M427 818 C485 770 560 780 618 824" fill="none" stroke="#8b6144" stroke-width="35" stroke-linecap="round"/>
+<path d="M520 825 C545 850 570 892 565 955" fill="none" stroke="#d9c3a2" stroke-width="8"/>
+<path d="M565 955 l-10 12 10 12 10-12z" fill="#b99758"/>
+<ellipse cx="680" cy="780" rx="35" ry="22" fill="#8a5c34"/><path d="M646 780 l-34 -18 22 28z" fill="#8a5c34"/>
+<circle cx="690" cy="774" r="4" fill="#22150d"/>
+<path d="M470 1110 C395 1148 310 1140 245 1105" fill="none" stroke="#53613d" stroke-width="18" stroke-linecap="round"/>
+<circle cx="230" cy="1098" r="22" fill="#8a6844"/><path d="M215 1098 l-30 -12 20 25z" fill="#8a6844"/>
+<path d="M605 1115 C680 1160 760 1155 825 1110" fill="none" stroke="#53613d" stroke-width="18" stroke-linecap="round"/>
+<circle cx="840" cy="1100" r="24" fill="#8a6844"/>
+<text x="527" y="1278" text-anchor="middle" font-family="Georgia,serif" font-size="34" font-style="italic" fill="#4a2a1c">“Senhor, fazei de mim um instrumento</text>
+<text x="527" y="1322" text-anchor="middle" font-family="Georgia,serif" font-size="34" font-style="italic" fill="#4a2a1c">da vossa paz.”</text>
+<line x1="310" y1="1370" x2="745" y2="1370" stroke="#b78a41" stroke-width="2"/>
+</svg>
