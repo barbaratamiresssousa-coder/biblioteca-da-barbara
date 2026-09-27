@@ -40,7 +40,7 @@
 
     html=html.replace(
       '<a class="btn gold buy" href="\${book.buy}" target="_blank" rel="noopener">Adquirir PDF</a></div></div></article>\`',
-      '<a class="btn gold buy" href="\${book.buy}" target="_blank" rel="noopener">Adquirir PDF</a>\${book.id==="novena-nossa-senhora-aparecida"?\`<a class="btn ghost" href="'+PHYSICAL_URL+'" target="_blank" rel="noopener">Adquirir livro físico</a>\`:""}<button class="btn ghost share-book" type="button" data-share="\${book.id}">Compartilhar</button></div></div></article>\`'
+      '<a class="btn gold buy" href="\${book.buy}" target="_blank" rel="noopener">Adquirir PDF</a>\${book.physicalBuy?\`<a class="btn ghost" href="\${book.physicalBuy}" target="_blank" rel="noopener">Adquirir livro físico</a>\`:""}<button class="btn ghost share-book" type="button" data-share="\${book.id}">Compartilhar</button></div></div></article>\`'
     );
 
     html=html.replace(
@@ -60,7 +60,7 @@
 
     html=html.replace(
       'buyFromDetails.href=currentBook.buy;details.classList.add',
-      'buyFromDetails.href=currentBook.buy;document.getElementById("detailPdfPrice").textContent="PDF - "+currentBook.price;const physicalPrice=document.getElementById("detailPhysicalPrice"),physicalBuy=document.getElementById("buyPhysicalFromDetails");if(currentBook.id==="novena-nossa-senhora-aparecida"){physicalPrice.textContent="Livro físico - R$ 49,90";physicalPrice.style.display="block";physicalBuy.href="'+PHYSICAL_URL+'";physicalBuy.style.display="inline-flex";}else{physicalPrice.style.display="none";physicalBuy.style.display="none";}details.classList.add'
+      'buyFromDetails.href=currentBook.buy;document.getElementById("detailPdfPrice").textContent="PDF - "+currentBook.price;const physicalPrice=document.getElementById("detailPhysicalPrice"),physicalBuy=document.getElementById("buyPhysicalFromDetails");if(currentBook.physicalPrice&&currentBook.physicalBuy){physicalPrice.textContent="Livro físico - "+currentBook.physicalPrice;physicalPrice.style.display="block";physicalBuy.href=currentBook.physicalBuy;physicalBuy.style.display="inline-flex";}else{physicalPrice.style.display="none";physicalBuy.style.display="none";}details.classList.add'
     );
 
     html=html.replace(
