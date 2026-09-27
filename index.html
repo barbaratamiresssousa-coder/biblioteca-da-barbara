@@ -13,7 +13,7 @@
     const response=await fetch('index(2).html',{cache:'no-store'});
     if(!response.ok) throw new Error('Não foi possível abrir a biblioteca.');
     let html=await response.text();
-    
+
     const marker='const BOOKS=';
     const start=html.indexOf(marker);
     if(start<0) throw new Error('Lista de livros não encontrada.');
@@ -22,10 +22,12 @@
     if(arrayEnd<0) throw new Error('Fim da lista de livros não encontrado.');
     const current=html.slice(arrayStart,arrayEnd+1);
     let list=JSON.parse(current);
-    list=list.filter(b=>b.id!=="novena-nossa-senhora-aparecida");
+    list=list.filter(b=>b.id!=="novena-sao-francisco-de-assis");
+    list.unshift({"id":"novena-sao-francisco-de-assis","title":"Novena de São Francisco de Assis","subtitle":"9 dias de fé, paz e simplicidade","tag":"Novena","meta":["9 dias","São Francisco de Assis","Oração e reflexão"],"detail_lines":[["Formato","Novena de 9 dias"],["Tema","Fé, paz e simplicidade"],["Conteúdo","História, Palavra de Deus, reflexão, intenção e oração"]],"description":"Uma novena de 9 dias inspirada na vida e na espiritualidade de São Francisco de Assis, com história, Palavra de Deus, reflexões, intenções, orações e propósitos diários. Para rezar juntamente com o Santo Terço.","price":"R$ 19,90","cover":"capa_novena_sao_francisco.svg","pages":["preview_sao_francisco_1.svg","preview_sao_francisco_2.svg","preview_sao_francisco_3.svg","preview_sao_francisco_4.svg","preview_sao_francisco_5.svg"],"buy":"https://wa.me/5589981099602?text=Ol%C3%A1%2C%20B%C3%A1rbara!%20Quero%20adquirir%20a%20Novena%20de%20S%C3%A3o%20Francisco%20de%20Assis%20em%20PDF%20por%20R%24%2019%2C90."});
     html=html.slice(0,arrayStart)+JSON.stringify(list)+html.slice(arrayEnd+1);
 
-    const PHYSICAL_URL='https://wa.me/5589981099602?text=Ol%C3%A1%2C%20B%C3%A1rbara%21%20Quero%20adquirir%20o%20livro%20f%C3%ADsico%20Novena%20de%20Nossa%20Senhora%20Aparecida%20por%20R%24%2049%2C90.';
+    const PHYSICALS={"novena-nossa-senhora-aparecida":{"price":"R$ 49,90","url":"https://wa.me/5589981099602?text=Ol%C3%A1%2C%20B%C3%A1rbara!%20Quero%20adquirir%20o%20livro%20f%C3%ADsico%20Novena%20de%20Nossa%20Senhora%20Aparecida%20por%20R%24%2049%2C90."},"novena-sao-francisco-de-assis":{"price":"R$ 49,90","url":"https://wa.me/5589981099602?text=Ol%C3%A1%2C%20B%C3%A1rbara!%20Quero%20adquirir%20o%20livro%20f%C3%ADsico%20Novena%20de%20S%C3%A3o%20Francisco%20de%20Assis%20por%20R%24%2049%2C90."}};
+    html=html.replace('const BOOKS=','const PHYSICALS='+JSON.stringify(PHYSICALS)+';const BOOKS=');
 
     html=html.replace(
       'function renderBooks(){grid.innerHTML=BOOKS.map(book=>\`<article class="book-card">',
@@ -34,22 +36,22 @@
 
     html=html.replace(
       '<div class="price-box"><span>PDF</span><strong>\${book.price}</strong></div><div class="actions">',
-      '<div class="price-box"><span>PDF</span><strong>\${book.price}</strong>\${book.id==="novena-nossa-senhora-aparecida"?\`<div style="margin-top:7px;font-size:14px;font-weight:800;color:#7a4a34">Livro físico — R$ 49,90</div>\`:""}</div><div class="actions">'
+      '<div class="price-box"><span>PDF</span><strong>\${book.price}</strong>\${PHYSICALS[book.id]?\`<div style="margin-top:7px;font-size:14px;font-weight:800;color:#7a4a34">Livro físico — \${PHYSICALS[book.id].price}</div>\`:""}</div><div class="actions">'
     );
 
     html=html.replace(
       '<a class="btn gold buy" href="\${book.buy}" target="_blank" rel="noopener">Adquirir PDF</a></div></div></article>\`',
-      '<a class="btn gold buy" href="\${book.buy}" target="_blank" rel="noopener">Adquirir PDF</a>\${book.id==="novena-nossa-senhora-aparecida"?\`<a class="btn ghost" href="'+PHYSICAL_URL+'" target="_blank" rel="noopener">Adquirir livro físico</a>\`:""}<button class="btn ghost share-book" type="button" data-share="\${book.id}">Compartilhar</button></div></div></article>\`'
+      '<a class="btn gold buy" href="\${book.buy}" target="_blank" rel="noopener">Adquirir PDF</a>\${PHYSICALS[book.id]?\`<a class="btn ghost" href="\${PHYSICALS[book.id].url}" target="_blank" rel="noopener">Adquirir livro físico</a>\`:""}<button class="btn ghost share-book" type="button" data-share="\${book.id}">Compartilhar</button></div></div></article>\`'
     );
 
     html=html.replace(
-      "grid.querySelectorAll('[data-read]').forEach(btn=>btn.addEventListener('click',()=>openReader(btn.dataset.read)));renderPdfCovers()}",
-      "grid.querySelectorAll('[data-read]').forEach(btn=>btn.addEventListener('click',()=>openReader(btn.dataset.read)));grid.querySelectorAll('[data-share]').forEach(btn=>btn.addEventListener('click',()=>shareBook(btn.dataset.share)));renderPdfCovers()}"
+      "grid.querySelectorAll('[data-read]').forEach(btn=>btn.addEventListener('click',()=>openReader(btn.dataset.read)))}",
+      "grid.querySelectorAll('[data-read]').forEach(btn=>btn.addEventListener('click',()=>openReader(btn.dataset.read)));grid.querySelectorAll('[data-share]').forEach(btn=>btn.addEventListener('click',()=>shareBook(btn.dataset.share)))}"
     );
 
     html=html.replace(
       'function getBook(id){return BOOKS.find(b=>b.id===id)}',
-      'function shareBook(id){const book=getBook(id);if(!book)return;const url=location.href.split("#")[0]+"#"+id;const data={title:book.title,text:"Veja este livro na Biblioteca da Bárbara: "+book.title,url};if(navigator.share){navigator.share(data).catch(()=>{});}else if(navigator.clipboard){navigator.clipboard.writeText(url).then(()=>alert("Link do livro copiado!"));}else{prompt("Copie o link deste livro:",url);}};function getBook(id){return BOOKS.find(b=>b.id===id)}'
+      'function shareBook(id){const book=getBook(id);if(!book)return;const url=location.href.split("#")[0]+"#"+id;const data={title:book.title,text:"Veja este livro na Biblioteca da Bárbara: "+book.title,url};if(navigator.share){navigator.share(data).catch(()=>{});}else if(navigator.clipboard){navigator.clipboard.writeText(url).then(()=>alert("Link do livro copiado!"));}else{prompt("Copie o link deste livro:",url);}}function getBook(id){return BOOKS.find(b=>b.id===id)}'
     );
 
     html=html.replace(
@@ -59,13 +61,16 @@
 
     html=html.replace(
       'buyFromDetails.href=currentBook.buy;details.classList.add',
-      'buyFromDetails.href=currentBook.buy;document.getElementById("detailPdfPrice").textContent="PDF - "+currentBook.price;const physicalPrice=document.getElementById("detailPhysicalPrice"),physicalBuy=document.getElementById("buyPhysicalFromDetails");if(currentBook.id==="novena-nossa-senhora-aparecida"){physicalPrice.textContent="Livro físico - R$ 49,90";physicalPrice.style.display="block";physicalBuy.href="'+PHYSICAL_URL+'";physicalBuy.style.display="inline-flex";}else{physicalPrice.style.display="none";physicalBuy.style.display="none";}details.classList.add'
+      'buyFromDetails.href=currentBook.buy;document.getElementById("detailPdfPrice").textContent="PDF - "+currentBook.price;const physicalPrice=document.getElementById("detailPhysicalPrice"),physicalBuy=document.getElementById("buyPhysicalFromDetails"),physical=PHYSICALS[currentBook.id];if(physical){physicalPrice.textContent="Livro físico - "+physical.price;physicalPrice.style.display="block";physicalBuy.href=physical.url;physicalBuy.style.display="inline-flex";}else{physicalPrice.style.display="none";physicalBuy.style.display="none";}details.classList.add'
     );
 
     html=html.replace(
       "readFromDetails.addEventListener('click',()=>currentBook&&openReader(currentBook.id));readerClose.addEventListener",
       "readFromDetails.addEventListener('click',()=>currentBook&&openReader(currentBook.id));document.getElementById('shareFromDetails').addEventListener('click',()=>currentBook&&shareBook(currentBook.id));readerClose.addEventListener"
     );
+
+    html=html.replaceAll('Adquirir PDF · R$ 39,90','Adquirir PDF · \${book.price}');
+    html=html.replaceAll('Quero o livro completo · R$ 39,90','Quero o livro completo · \${book.price}');
 
     html=html.replace(
       'year.textContent=new Date().getFullYear();renderBooks();',
