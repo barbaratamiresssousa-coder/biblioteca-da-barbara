@@ -1,1 +1,17 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1055" height="1491" viewBox="0 0 1055 1491"><rect width="1055" height="1491" fill="#f8efd9"/><rect x="36" y="36" width="983" height="1419" fill="none" stroke="#b18a4c" stroke-width="5"/><text x="527.5" y="110" text-anchor="middle" font-family="Georgia,serif" font-size="46" fill="#b18a4c">✝</text><text x="527.5" y="300" text-anchor="middle" font-family="Georgia,serif" font-size="55" fill="#b18a4c">NOVENA DE</text><text x="527.5" y="405" text-anchor="middle" font-family="Georgia,serif" font-size="82" font-weight="700" fill="#4a2416">SÃO FRANCISCO DE ASSIS</text><text x="527.5" y="485" text-anchor="middle" font-family="Georgia,serif" font-size="43" font-style="italic" fill="#42552f">9 dias de fé, paz e simplicidade</text><line x1="250" y1="550" x2="805" y2="550" stroke="#b18a4c" stroke-width="3"/><text x="527.5" y="720" text-anchor="middle" font-family="Georgia,serif" font-size="54" fill="#42552f">Página de rosto</text><text x="527.5" y="845" text-anchor="middle" font-family="Georgia,serif" font-size="42" fill="#4a2416">Um caminho de oração inspirado na vida</text><text x="527.5" y="902" text-anchor="middle" font-family="Georgia,serif" font-size="42" fill="#4a2416">e na espiritualidade de São Francisco.</text><text x="527.5" y="1180" text-anchor="middle" font-family="Georgia,serif" font-size="32" fill="#4a2416">Bárbara Tamires Sousa</text></svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="1055" height="1491" viewBox="0 0 1055 1491">
+<rect width="1055" height="1491" fill="#f8efd9"/><rect x="38" y="38" width="979" height="1415" fill="none" stroke="#b18a4c" stroke-width="4"/>
+<path d="M55 70 Q115 30 190 75 Q130 80 80 145Z" fill="#5b6944"/><path d="M1000 70 Q940 30 865 75 Q925 80 975 145Z" fill="#5b6944"/>
+<text x="527" y="120" text-anchor="middle" font-family="Georgia,serif" font-size="44" fill="#a2793d">✝</text>
+<text x="527" y="280" text-anchor="middle" font-family="Georgia,serif" font-size="58" fill="#a2793d">NOVENA DE</text>
+<text x="527" y="390" text-anchor="middle" font-family="Georgia,serif" font-size="92" font-weight="700" fill="#411f14">SÃO FRANCISCO</text>
+<text x="527" y="485" text-anchor="middle" font-family="Georgia,serif" font-size="92" font-weight="700" fill="#411f14">DE ASSIS</text>
+<text x="527" y="560" text-anchor="middle" font-family="Georgia,serif" font-size="43" font-style="italic" fill="#41532c">9 dias de fé, paz e simplicidade</text>
+<circle cx="527" cy="875" r="230" fill="#ead6a9"/>
+<path d="M450 780 C405 855 410 1025 460 1092 L596 1092 C640 1010 635 855 580 785 C550 745 480 745 450 780Z" fill="#6b4932"/>
+<circle cx="520" cy="750" r="55" fill="#c99568"/><path d="M468 745 C490 680 560 682 575 742 C540 716 505 712 468 745Z" fill="#4c2f25"/>
+<ellipse cx="675" cy="810" rx="31" ry="20" fill="#8a5c34"/><path d="M646 810 l-28 -15 18 25z" fill="#8a5c34"/>
+<path d="M385 1002 Q330 1018 280 980" fill="none" stroke="#5b6944" stroke-width="18"/><circle cx="265" cy="975" r="20" fill="#8a6844"/>
+<path d="M665 1005 Q720 1020 780 980" fill="none" stroke="#5b6944" stroke-width="18"/><circle cx="795" cy="975" r="22" fill="#8a6844"/>
+<line x1="300" y1="1250" x2="755" y2="1250" stroke="#b18a4c" stroke-width="2"/>
+<text x="527" y="1325" text-anchor="middle" font-family="Georgia,serif" font-size="34" fill="#4a2416">Bárbara Tamires Sousa</text>
+</svg>
