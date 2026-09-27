@@ -22,7 +22,7 @@
     if(arrayEnd<0) throw new Error('Fim da lista de livros não encontrado.');
     const current=html.slice(arrayStart,arrayEnd+1);
     let list=JSON.parse(current);
-    if(!list.some(b=>b.id===NOVENA.id)) list.push(NOVENA);
+    const existingNovena=list.find(b=>b.id===NOVENA.id);if(existingNovena){existingNovena.cover="capa_novena_aparecida.jpg";}else{NOVENA.cover="capa_novena_aparecida.jpg";list.push(NOVENA);}
     html=html.slice(0,arrayStart)+JSON.stringify(list)+html.slice(arrayEnd+1);
 
     const PHYSICAL_URL='https://wa.me/5589981099602?text=Ol%C3%A1%2C%20B%C3%A1rbara%21%20Quero%20adquirir%20o%20livro%20f%C3%ADsico%20Novena%20de%20Nossa%20Senhora%20Aparecida%20por%20R%24%2049%2C90.';
