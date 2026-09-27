@@ -29,6 +29,7 @@
     html=html.slice(0,arrayStart)+JSON.stringify(list)+html.slice(arrayEnd+1);
 
     const PHYSICALS={"novena-nossa-senhora-aparecida":{"price":"R$ 49,90","url":"https://wa.me/5589981099602?text=Ol%C3%A1%2C%20B%C3%A1rbara!%20Quero%20adquirir%20o%20livro%20f%C3%ADsico%20Novena%20de%20Nossa%20Senhora%20Aparecida%20por%20R%24%2049%2C90."},"novena-sao-francisco-de-assis":{"price":"R$ 49,90","url":"https://wa.me/5589981099602?text=Ol%C3%A1%2C%20B%C3%A1rbara!%20Quero%20adquirir%20o%20livro%20f%C3%ADsico%20Novena%20de%20S%C3%A3o%20Francisco%20de%20Assis%20por%20R%24%2049%2C90."}};
+    html=html.replace('function renderBooks(){','const PHYSICALS='+JSON.stringify(PHYSICALS)+';function renderBooks(){');
 
     html=html.replace(
       'function renderBooks(){grid.innerHTML=BOOKS.map(book=>\`<article class="book-card">',
